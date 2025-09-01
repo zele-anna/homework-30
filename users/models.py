@@ -31,10 +31,10 @@ class Payment(models.Model):
     ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
-    date = models.DateField(blank=True, null=True, verbose_name='Дата платежа')
+    date = models.DateTimeField(blank=True, null=True, verbose_name='Дата и время платежа')
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Оплаченный курс')
     lesson = models.ForeignKey(Lesson, on_delete=models.SET_NULL, blank=True, null=True, verbose_name='Оплаченный урок')
-    amount = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True, verbose_name='Сумма оплаты')
+    amount = models.PositiveIntegerField(blank=True, null=True, verbose_name='Сумма оплаты')
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHOD_CHOICES, verbose_name='Способ оплаты')
 
     class Meta:

@@ -4,24 +4,24 @@ from lms.models import Course, Lesson
 
 
 class LessonSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Lesson
         fields = '__all__'
 
 
+class LessonShortSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Lesson
+        fields = ['id', 'title']
+
+
 class CourseSerializer(serializers.ModelSerializer):
     lesson_count = serializers.SerializerMethodField()
-    lessons = serializers.SerializerMethodField()
-    # lesson = LessonSerializer()
+    lessons = LessonShortSerializer(source='lesson_set', many=True, read_only=True)
 
-    def get_lessons(self, course):
-        return [lesson.title for lesson in Lesson.objects.filter(course=course)]
-
+    def get_lesson_count(self, course):
+        return course.lesson_set.count()
 
     class Meta:
         model = Course
         fields = ['pk', 'title', 'preview', 'description', 'lesson_count', 'lessons']
-
-    def get_lesson_count(self, course):
-        return course.lesson_set.count()
