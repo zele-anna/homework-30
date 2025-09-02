@@ -12,6 +12,7 @@ djangorestframework = "^3.16.1"
 psycopg2-binary = "^2.9.10"
 pillow = "^11.3.0"
 python-dotenv = "^1.1.1"
+django-filter = "^25.1"
 
 
 [build-system]
