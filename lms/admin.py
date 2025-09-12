@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from lms.models import Course, Lesson
+from lms.models import Course, Lesson, Subscription
+
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
@@ -10,3 +11,8 @@ class CourseAdmin(admin.ModelAdmin):
 @admin.register(Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ("id", "title", "course")
+
+
+@admin.register(Subscription)
+class LessonAdmin(admin.ModelAdmin):
+    list_display = ("id", "user", "course")
