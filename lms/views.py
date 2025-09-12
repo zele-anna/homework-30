@@ -6,6 +6,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView,
     get_object_or_404
 
 from lms.models import Course, Lesson, Subscription
+from lms.paginators import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
 
@@ -13,6 +14,7 @@ from users.permissions import IsModer, IsOwner
 class CourseViewSet(ModelViewSet):
     queryset = Course.objects.all()
     serializer_class = CourseSerializer
+    pagination_class = CustomPagination
 
     def get_permissions(self):
         if self.action in ['retrieve', 'update', 'partial_update']:
@@ -62,6 +64,7 @@ class LessonListAPIView(ListAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
     permission_classes = [IsAuthenticated]
+    pagination_class = CustomPagination
 
     def get_queryset(self):
         if IsModer().has_permission(self.request, self):
