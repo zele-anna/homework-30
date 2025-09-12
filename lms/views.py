@@ -6,7 +6,7 @@ from rest_framework.generics import CreateAPIView, RetrieveAPIView, ListAPIView,
     get_object_or_404
 
 from lms.models import Course, Lesson, Subscription
-from lms.paginators import CustomPagination
+from lms.pagination import CustomPagination
 from lms.serializers import CourseSerializer, LessonSerializer
 from users.permissions import IsModer, IsOwner
 
