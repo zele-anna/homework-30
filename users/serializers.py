@@ -9,6 +9,12 @@ class UserSerializer(ModelSerializer):
         fields = ('pk', 'email', 'phone', 'city', 'avatar')
 
 
+class UserReadSerializer(ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('pk', 'email')
+
+
 class PaymentSerializer(ModelSerializer):
     class Meta:
         model = Payment

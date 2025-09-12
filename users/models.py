@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from lms.models import Lesson, Course
+# from lms.models import Lesson, Course
 
 
 class User(AbstractUser):
@@ -25,6 +25,8 @@ class User(AbstractUser):
 
 
 class Payment(models.Model):
+    from lms.models import Lesson, Course
+
     PAYMENT_METHOD_CHOICES = [
         ('наличные', 'наличные'),
         ('перевод на счет', 'перевод на счет'),
