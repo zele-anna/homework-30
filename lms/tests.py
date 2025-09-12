@@ -169,8 +169,13 @@ class SubscriptionTestCase(APITestCase):
     def test_subscribe(self):
         '''Тестирование функционала подписки.'''
         url = reverse('lms:subscription')
-        data = {'user': self.user, 'course': self.course}
+        data = {'course': self.course.pk}
         response = self.client.post(url, data=data)
 
-        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
-        # self.assertEqual(Lesson.objects.all().count(), 2)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json().get('message'), 'подписка добавлена')
+
+        response = self.client.post(url, data=data)
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json().get('message'), 'подписка удалена')
