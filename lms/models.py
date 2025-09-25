@@ -8,6 +8,7 @@ class Course(models.Model):
     preview = models.ImageField(upload_to='lms/courses/previews/', verbose_name='Превью', blank=True, null=True)
     description = models.TextField(verbose_name='Описание курса', blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Владелец', blank=True, null=True)
+    updated_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата и время последнего обновления')
 
     class Meta:
         verbose_name = 'Курс'
@@ -24,6 +25,7 @@ class Lesson(models.Model):
     link = models.CharField(max_length=255, verbose_name='Ссылка на видео', blank=True, null=True)
     course = models.ForeignKey(Course, on_delete=models.SET_NULL, verbose_name='Курс', blank=True, null=True)
     owner = models.ForeignKey(User, on_delete=models.SET_NULL, verbose_name='Владелец', blank=True, null=True)
+    updated_at = models.DateTimeField(blank=True, null=True, verbose_name='Дата и время последнего обновления')
 
     class Meta:
         verbose_name = 'Урок'
