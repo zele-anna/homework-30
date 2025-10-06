@@ -40,7 +40,7 @@ class CourseViewSet(ModelViewSet):
         current_update = timezone.now()
         four_hours_earlier = current_update - timedelta(hours=4)
         if not last_update or last_update <= four_hours_earlier:
-            send_update_notification.delay(course.pk, course.title)
+            send_update_notification.delay(course.pk)
 
         course.updated_at = current_update
         course.save()
@@ -100,7 +100,7 @@ class LessonUpdateAPIView(UpdateAPIView):
         current_update = timezone.now()
         four_hours_earlier = current_update - timedelta(hours=4)
         if not last_update or last_update <= four_hours_earlier:
-            send_update_notification.delay(course.pk, course.title)
+            send_update_notification.delay(course.pk)
 
         lesson.updated_at = current_update
         lesson.save()

@@ -76,7 +76,8 @@ class CourseTestCase(APITestCase):
                                     'title': 'Lesson 1'
                                 }
                             ],
-                        'subscription': False
+                        'subscription': False,
+                        'updated_at': None
                     }
                 ]
         }
@@ -146,6 +147,7 @@ class LessonTestCase(APITestCase):
                     'preview': None,
                     'description': None,
                     'link': 'youtube.com/123',
+                    'updated_at': None,
                     'course': self.course.pk,
                     'owner': self.user.pk
                 }
