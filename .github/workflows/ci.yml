@@ -39,7 +39,7 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_HOST: ${{ secrets.DB_HOST }}
           CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL_FOR_TEST }}
-          CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND_FOR_TEST
+          CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND_FOR_TEST }}
 
   build:
     needs: test
