@@ -4,7 +4,11 @@
 
 ### Установка и настройка
 Все необходимые зависимости указаны в файле [pyproject.toml](pyproject.toml)
-Для работы необходимо создать базу данных PostgreSQL и прописать параметры доступа в базу в файле .env по примеру [.env.example](.env.example)
+Для работы локально необходимо создать базу данных PostgreSQL и прописать параметры доступа в базу в файле .env по примеру [.env.example](.env.example). При этом следует указать следующие настройки Celery:
+CELERY_BROKER_URL=redis://localhost:6379/0
+CELERY_RESULT_BACKEND=redis://localhost:6379/0
+
+Для контейнеризации создан отдельный файл переменных зависимостей ".env.docker", который заполняется данными по примеру [.env.docker.example](.env.docker.example) 
 
 ### Запуск программы
 Требуется запустить сервер командой python manage.py runserver

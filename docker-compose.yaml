@@ -1,0 +1,65 @@
+version: "3.9"
+
+services:
+  lms-app:
+    build: .
+    command: >
+      bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    env_file:
+      - .env.docker
+    volumes:
+      - .:/code
+      - static_volume:/code/static
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    env_file:
+      - .env.docker
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    expose:
+      - "5432:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}" ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+  redis:
+    image: redis
+    volumes:
+      - ./redis_data:/data
+    expose:
+      - "6379"
+    healthcheck:
+      test: [ "CMD-SHELL", "redis-cli ping | grep PONG" ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    depends_on:
+      - db
+  celery-worker:
+    build:
+      context: .
+    command: celery -A config worker -l INFO
+    env_file:
+      - .env.docker
+    depends_on:
+      - redis
+  celery-beat:
+    build:
+      context: .
+    command: sh -c "sleep 10 && celery -A config beat -l info -S django"
+    volumes:
+      - .:/app
+    depends_on:
+      - celery-worker
+    env_file:
+      - .env.docker
+
+volumes:
+  postgres_data:
+  static_volume:
+  redis_data:
