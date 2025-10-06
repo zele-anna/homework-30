@@ -21,14 +21,11 @@ jobs:
       - name: Install dependencies
         run: poetry install --no-root
 
-      - name: Run poetry
-        run: poetry run
-
       - name: Run migrations
-        run: python manage.py migrate
+        run: poetry run python manage.py migrate
 
       - name: Run tests
-        run: python manage.py test
+        run: poetry run python manage.py test
 
   build:
     needs: test
