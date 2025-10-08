@@ -36,13 +36,8 @@ jobs:
         run: poetry run python manage.py test
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-          DB_NAME: ${{ secrets.DB_NAME }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
-          DB_HOST: ${{ secrets.DB_HOST }}
-          STRIPE_API_KEY: ${{ secrets.STRIPE_API_KEY }}
-          CELERY_BROKER_URL: ${{ secrets.CELERY_BROKER_URL_FOR_TEST }}
-          CELERY_RESULT_BACKEND: ${{ secrets.CELERY_RESULT_BACKEND_FOR_TEST }}
+          CELERY_BROKER_URL: redis://localhost:6379/0
+          CELERY_RESULT_BACKEND: redis://localhost:6379/0
 
   build:
     needs: test
