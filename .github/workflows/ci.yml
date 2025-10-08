@@ -50,6 +50,11 @@ jobs:
       - name: Check out code
         uses: actions/checkout@v3
 
+      - name: Create .env file
+        run: |
+          touch .env
+          echo '"${{ secrets.ENV_FILE }}"' | sed "s/\"//g" > .env
+
       - name: Log in Docker Hub
         run: echo ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }} | docker login -u ${{ secrets.DOCKER_HUB_USERNAME }} --password-stdin
 
