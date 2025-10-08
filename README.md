@@ -7,8 +7,10 @@
 Для работы локально необходимо создать базу данных PostgreSQL и прописать параметры доступа в базу в файле .env по примеру [.env.example](.env.example). При этом следует указать следующие настройки Celery:
 CELERY_BROKER_URL=redis://localhost:6379/0
 CELERY_RESULT_BACKEND=redis://localhost:6379/0
+Для работы на сервере необходимо установить на сервере docker, а также добавить адрес сервера в список ALLOWED_HOSTS файла [settings.py](config/settings.py)
+При отправке push или pull_request активируется пайплайн в Github Actions, который прогоняет все прописанные тесты (с применением sqlite вместо postgres) и производит деплой приложения на сервер. Все используемые переменные зависимости хранятся в Github Secrets. 
 
-Для контейнеризации создан отдельный файл переменных зависимостей ".env.docker", который заполняется данными по примеру [.env.docker.example](.env.docker.example) 
+Для контейнеризации с помощью docker-compose создан отдельный файл переменных зависимостей ".env.docker", который заполняется данными по примеру [.env.docker.example](.env.docker.example) 
 
 ### Запуск программы
 Требуется запустить сервер командой python manage.py runserver
